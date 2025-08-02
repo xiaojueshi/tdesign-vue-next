@@ -1,5 +1,5 @@
 import { defineComponent, PropType, computed } from 'vue';
-import { useConfig, usePrefixClass } from '../../../hooks/useConfig';
+import { useConfig, usePrefixClass } from '@tdesign/shared-hooks';
 import TPanelContent from './PanelContent';
 import TExtraContent from './ExtraContent';
 import { TdDateRangePickerProps } from '../../type';
@@ -43,6 +43,7 @@ export default defineComponent({
     onYearChange: Function,
     onMonthChange: Function,
     onTimePickerChange: Function,
+    needConfirm: Boolean,
   },
   setup(props) {
     const COMPONENT_NAME = usePrefixClass('date-range-picker__panel');
@@ -155,6 +156,7 @@ export default defineComponent({
             onPresetClick={props.onPresetClick}
             onConfirmClick={props.onConfirmClick}
             presetsPlacement={props.presetsPlacement}
+            needConfirm={props.needConfirm}
           />
         ) : null}
         <div class={`${COMPONENT_NAME.value}-content-wrapper`}>
@@ -202,6 +204,7 @@ export default defineComponent({
             onPresetClick={props.onPresetClick}
             onConfirmClick={props.onConfirmClick}
             presetsPlacement={props.presetsPlacement}
+            needConfirm={props.needConfirm}
           />
         ) : null}
       </div>

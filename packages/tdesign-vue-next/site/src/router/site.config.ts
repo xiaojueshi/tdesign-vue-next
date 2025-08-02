@@ -60,7 +60,7 @@ export const docs = [
         componentEn: () => import('@tdesign/common/theme.en-US.md'),
       },
       {
-        title: '暗黑模式',
+        title: '深色模式',
         titleEn: 'Dark Mode',
         name: 'dark-mode',
         path: '/vue-next/dark-mode',
@@ -537,6 +537,14 @@ export const docs = [
         path: '/vue-next/components/progress',
         component: () => import('@tdesign/components/progress/progress.md'),
         componentEn: () => import('@tdesign/components/progress/progress.en-US.md'),
+      },
+      {
+        title: 'QRCode 二维码',
+        titleEn: 'QRCode',
+        name: 'qrcode',
+        path: '/vue-next/components/qrcode',
+        component: () => import('@tdesign/components/qrcode/qrcode.md'),
+        componentEn: () => import('@tdesign/components/qrcode/qrcode.en-US.md'),
       },
       {
         title: 'Skeleton 骨架屏',

@@ -27,6 +27,7 @@ Note that in the following demo, there are multiple instances where DOM elements
 {{ plugin }}
 
 ## API
+
 ### Drawer Props
 
 name | type | default | description | required
@@ -37,12 +38,13 @@ cancelBtn | String / Object / Slot / Function | - | Typescript：`FooterButton` 
 closeBtn | String / Boolean / Slot / Function | - | Typescript：`string \| boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-vue-next/blob/develop/packages/components/common.ts) | N
 closeOnEscKeydown | Boolean | true | trigger drawer close event on `ESC` keydown | N
 closeOnOverlayClick | Boolean | true | \- | N
-confirmBtn | String / Object / Slot / Function | - | Typescript：`FooterButton` `type FooterButton = string \| ButtonProps \| TNode`，[Button API Documents](./button?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-vue-next/blob/develop/packages/components/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-vue-next/blob/develop/packages/components/drawer/type.ts) | N
+confirmBtn | String / Object / Slot / Function | - | Typescript：`FooterButton` `type FooterButton = string \| ButtonProps \| TNode \| null `，[Button API Documents](./button?tab=api)。[see more ts definition](https://github.com/Tencent/tdesign-vue-next/blob/develop/packages/components/common.ts)。[see more ts definition](https://github.com/Tencent/tdesign-vue-next/blob/develop/packages/components/drawer/type.ts) | N
 default | String / Slot / Function | - | Typescript：`string \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-vue-next/blob/develop/packages/components/common.ts) | N
 destroyOnClose | Boolean | false | \- | N
 drawerClassName | String | - | \- | N
 footer | Boolean / Slot / Function | true | Typescript：`boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-vue-next/blob/develop/packages/components/common.ts) | N
 header | String / Boolean / Slot / Function | true | Typescript：`string \| boolean \| TNode`。[see more ts definition](https://github.com/Tencent/tdesign-vue-next/blob/develop/packages/components/common.ts) | N
+lazy | Boolean | false | Enable Drawer lazy loading, the contents of the Drawer are not rendered when enable | N
 mode | String | overlay | options: overlay/push | N
 placement | String | right | options: left/right/top/bottom | N
 preventScrollThrough | Boolean | true | \- | N
@@ -101,3 +103,6 @@ update | `(props: DrawerOptions)` | \- | \-
 name | params | default | description
 -- | -- | -- | --
 options | \- | - | Typescript：`DrawerOptions`
+context | \- | - | Typescript：`AppContext`。[see more ts definition](https://github.com/Tencent/tdesign-vue-next/blob/develop/packages/components/common.ts)
+
+插件返回值：`DrawerInstance`

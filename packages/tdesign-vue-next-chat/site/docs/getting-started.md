@@ -24,6 +24,7 @@ npm i @tdesign-vue-next/chat
 import { createApp } from 'vue';
 import App from './app.vue';
 import TDesignChat from '@tdesign-vue-next/chat'; // 引入chat组件
+import 'tdesign-vue-next/es/style/index.css'; // 引入少量全局样式变量
 
 const app = createApp(App);
 app.use(TDesignChat);
@@ -53,13 +54,84 @@ import {
   ChatAction as TChatAction,
   ChatContent as TChatContent,
   ChatInput as TChatInput,
-  ChatItem as TChatItem
+  ChatItem as TChatItem,
 } from '@tdesign-vue-next/chat';
 ```
 
 <div style="background: #fff5e4; display: flex; align-items: center; line-height: 20px; padding: 14px 24px; border-radius: 3px; color: #555a65;margin:16px 0">
-   ⚠️ 请注意，如果配合 unplugin-vue-components 使用 TDesign，请勿重命名为 T 开头组件进行按需使用，后续将修复该使用问题。
+   ⚠️ 如果按需使用的同时，需要通过主题生成器导出主题覆盖全局样式，建议请在 `main.ts` 按需注册使用 `createApp(App).use(TChatAction)`
 </div>
+
+
+### 通过插件按需引用使用
+
+除此之外，也可以使用 `unplugin-vue-components` 和 `unplugin-auto-import` 来实现自动导入：
+
+您仍需在项目引入组件库的少量全局样式变量
+
+```js
+import { createApp } from 'vue';
+// 引入组件库的少量全局样式变量
+import 'tdesign-vue-next/es/style/index.css';
+
+const app = createApp(App);
+```
+
+并安装 `@tdesign-vue-next/auto-import-resolver` 和两个unplugin相关的第三方包
+
+```bash
+npm install -D @tdesign-vue-next/auto-import-resolver unplugin-vue-components unplugin-auto-import
+```
+
+然后在 Webpack 或 Vite 对应的配置文件添加上述插件。
+
+#### Vite
+
+```js
+import AutoImport from 'unplugin-auto-import/vite';
+import Components from 'unplugin-vue-components/vite';
+import { TDesignResolver } from '@tdesign-vue-next/auto-import-resolver';
+export default {
+  plugins: [
+    // ...
+    AutoImport({
+      resolvers: [TDesignResolver({
+        library: 'chat'
+      })],
+    }),
+    Components({
+      resolvers: [TDesignResolver({
+        library: 'chat'
+      })],
+    }),
+  ],
+};
+```
+
+#### Webpack
+
+```js
+const AutoImport = require('unplugin-auto-import/webpack');
+const Components = require('unplugin-vue-components/webpack');
+const { TDesignResolver } = require('@tdesign-vue-next/auto-import-resolver');
+module.exports = {
+  // ...
+  plugins: [
+    AutoImport.default({
+      resolvers: [TDesignResolver({
+        library: 'chat'
+      })],
+    }),
+    Components.default({
+      resolvers: [TDesignResolver({
+        library: 'chat'
+      })],
+    }),
+  ],
+};
+```
+
+> `TDesignResolver` 支持的配置，可以点击此[链接](https://github.com/Tencent/tdesign-vue-next/blob/develop/packages/auto-import-resolver/README.md#%E9%80%89%E9%A1%B9)。
 
 
 ## 多语言配置
@@ -68,16 +140,23 @@ import {
 
 如果您有多语言的需求，可以通过 `tdesign-vue-next` 提供的[全局配置能力](https://tdesign.tencent.com/vue-next/components/config-provider#%E5%9B%BD%E9%99%85%E5%8C%96%E9%85%8D%E7%BD%AE)进行配置。
 
-```Vue
+```html
 <template>
-  <t-config-provider :global-config="enConfig">
+  <config-provider :global-config="enConfig">
     <t-chat />
-  </t-config-provider>
+  </config-provider>
 </template>
 <script setup>
+import { ConfigProvider } from '@tdesign-vue-next/chat/es/config-provider';
 import enConfig from 'tdesign-vue-next/es/locale/en_US';
 </script>
 ```
+
+## 编辑器提示
+
+安装注册 TDesign 之后，在开发项目时，可以配合插件在VSCode等主流编辑器中达到提示组件名及API的效果。
+
+推荐安装 `volar`，并在项目的 tsconfig.json 的 `includes` 属性中增加`node_modules/@tdesign-vue-next/chat/global.d.ts`，即可实现该效果。
 
 ## 浏览器兼容性
 
